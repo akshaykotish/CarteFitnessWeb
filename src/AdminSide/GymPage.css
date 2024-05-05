@@ -1,0 +1,97 @@
+
+
+.InTheGym{
+    padding: 4%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: hidden;
+    flex-direction: column;
+}
+
+.GymNamePage{
+    font-size: 40pt;
+    font-weight: bold;
+}
+
+
+.InLineButtons{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: hidden;
+    flex-direction: row;
+}
+
+.InLineBtn{
+    margin: 2%;
+}
+
+.SubscriptionOffers{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: hidden;
+    flex-direction: row;
+}
+
+.SubPlans{
+    width: 80%;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px grey;
+    overflow: hidden;
+}
+
+.SubBox{
+    width: auto;
+    margin-left: 2%;
+    margin-right: 2%;
+    height: 40px;
+    border-radius: 10px;
+
+    border: solid 1px grey;
+
+    cursor: pointer;
+    padding-left: 2.5%;
+    padding-right: 1%;
+
+    margin: 2%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: auto;
+    flex-direction: row;
+
+    background-image: url("https://cdn-icons-png.flaticon.com/512/3966/3966554.png");
+    background-position: left;
+    background-position-x: 5px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+}
+
+.SubBox img{
+    height: 80%;
+    width: 14%;
+}
+
+.SubBox a{
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 10pt;
+}
+

@@ -1,0 +1,134 @@
+
+
+.CardsBox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    overflow: auto; 
+    flex-direction: row;
+}
+
+.CardsBoxTitle{
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    flex-direction: row;
+}
+
+.Cards{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: auto;
+    flex-direction: row;
+}
+
+.Card{
+    margin: 1%;
+    background-position: center;
+    background-size: cover;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 3px 2px 5px grey;
+    cursor: pointer;
+}
+
+.CardCover{
+    background-image: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    background-color: rgba(234, 245, 255, 0.808);
+}
+
+.GymPickDesign{
+    width: 25vw;
+    height: 25vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: end;
+    flex-direction: row;
+    background-image: url("../public/GymAssets/GymBox1.jpg");
+}
+
+.SubscriptionDesign{
+    width: 25vw;
+    height: 25vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    background-image: url("../public/GymAssets/SuscriptionBack.jpg");
+}
+
+
+.SubscriberDesign{
+    width: 24vw;
+    height: 30vh;
+    padding: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    background-color: white;
+    font-size: 9pt;
+}
+
+.SubscriptionDesign .Icon{
+    width: 5vw;
+    height: 5vw;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    font-size: 20pt;
+    background-color: rgba(245, 245, 245, 0.604);
+    margin: 1%;
+}
+
+
+.SubscriptionDesign .Text{
+    border-radius: 10px;    
+    margin: 1%;
+}
+
+.GymPickDesign .Text{
+    width: 100%;
+    background-color: rgba(240, 248, 255, 0.736);
+    text-align: center;
+    font-weight: bold;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.Card .Text span{
+    font-size: 8pt;
+    font-weight: 300;
+}
+

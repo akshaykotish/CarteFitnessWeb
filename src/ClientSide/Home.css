@@ -1,0 +1,32 @@
+
+
+
+.HomeBox{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: auto;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+
+.AdminGyms{
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: hidden;
+    flex-direction: column;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 5px 5px 15px grey;
+    margin: 2%;
+}

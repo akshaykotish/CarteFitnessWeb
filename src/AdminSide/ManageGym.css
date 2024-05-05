@@ -1,0 +1,85 @@
+
+.AdminHeader{
+    width: 98%;
+    padding: 0%;
+    padding-left: 2%;
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: auto;
+    flex-direction: row ;
+    background-color: rgb(28, 28, 28);
+    color: white;
+}
+
+.AdminHeader input[type=button]{
+    margin-left: 5%;
+}
+
+.ManageGyms{
+    width: 96%;
+    height: auto;
+    padding: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: auto;
+    flex-direction: column;
+}
+
+
+.GymBox
+{
+    min-width: 170px;
+    width: auto;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px grey;
+
+    cursor: pointer;
+    padding-left: 2.5%;
+    padding-right: 1%;
+
+    margin: 2%;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    overflow-x: auto;
+    flex-direction: row;
+
+    
+    background-image: url("https://cdn-icons-png.flaticon.com/512/755/755298.png");
+    background-position: left;
+    background-position-x: 10px;
+    background-size: 25px;
+    background-repeat: no-repeat;
+}
+
+.GymBox:hover{
+    background-color: whitesmoke;
+}
+
+img{
+    margin-left: 2%;
+    width: 15%;
+    height: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.GymName{
+    width: 80%;
+    margin-left: 3%;
+    font-size: small;
+}

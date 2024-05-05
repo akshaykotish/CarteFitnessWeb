@@ -1,0 +1,107 @@
+
+
+.FormBG{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: auto;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.Form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    overflow: auto;
+    flex-direction: row;
+    width: 60vw;
+    height: 70vh;
+    border-radius: 10px;
+    padding: 2%;
+    background-color: rgb(255, 255, 255);
+    animation: FadeinForm 2s;
+}
+
+@keyframes FadeinForm {
+    from{
+        opacity: 0;
+    }   
+    to{
+        opacity: 1;
+    }
+}
+
+.Form .Header{
+    width: 100%;
+    margin: 1%;
+    padding: 1%;
+    text-align: left;
+}
+
+.Form .FieldsArea {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    overflow: auto;
+    flex-direction: row;
+}
+
+.Form .FieldsArea .FieldRow{
+    margin: 1%;
+    padding: 1%;
+    width: 15vw;
+    font-size: 8pt;
+}
+
+.FieldsArea .FormFieldDivider{
+    width: 100%;
+    height: 0.5vh;
+    background-color: rgb(233, 233, 233);
+    border-radius: 1px;
+}
+
+.FieldRow input{
+    font-size: 9pt;
+}
+
+.Form .FieldsArea .FieldRow input[type=text]{
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.Form .FieldsArea .FieldRow input[type=number]{
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.Form .FieldsArea .FieldRow input[type=password]{
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.Form .ButtonArea{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: auto;
+    flex-direction: row;
+    width: 100%;
+}
+
+.Form .ButtonArea input[type=button]{
+    width: auto;
+    padding-left: 2%;
+    padding-right: 2%;
+    max-width: 50%;
+    margin: 1%;
+}

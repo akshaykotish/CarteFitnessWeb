@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.LoginForm{
+    width: 40%;
+    height: 40%;
+    border: solid 1px grey;
+    border-radius: 10px;
+    padding: 2%;
+}
+
+.LoginForm table{
+    width: 100%;
+}
+
