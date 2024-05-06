@@ -28,6 +28,73 @@ class CreateGym extends React.Component{
         var gymphone = document.getElementById("GymPhone").value;
         var gymemail = document.getElementById("GymEmail").value;
 
+        if(gymname == "" || address1  == "" || address2 == "" || city == "" || state == "" || country == "" || gymphone == "" || gymemail == "")
+        {
+            if(gymname == "")
+            {
+                document.getElementById("GymName").style.border = "solid 1px red";
+            }
+            else{
+                document.getElementById("GymName").style.border = "none";
+            }
+
+            if(address1 == "")
+            {
+                document.getElementById("Address1").style.border = "solid 1px red";
+            }
+            else{
+                document.getElementById("Address1").style.border = "none";
+            }
+
+            if(address2 == "")
+            {
+                document.getElementById("Address2").style.border = "solid 1px red";
+            }
+            else{
+                document.getElementById("Address2").style.border = "none";
+            }
+
+            if(city == "")
+            {
+                document.getElementById("City").style.border = "solid 1px red";
+            }
+            else{
+                document.getElementById("City").style.border = "none";
+            }
+
+            if(state == "")
+            {
+                document.getElementById("State").style.border = "solid 1px red";
+            }
+            else{
+                document.getElementById("State").style.border = "none";
+            }
+
+            if(country == "")
+            {
+                document.getElementById("Country").style.border = "solid 1px red";
+            }
+            else{
+                document.getElementById("Country").style.border = "none";
+            }
+
+            if(gymphone == "")
+            {
+                document.getElementById("GymPhone").style.border = "solid 1px red";
+            }
+            else{
+                document.getElementById("GymPhone").style.border = "none";
+            }
+
+            if(gymemail == "")
+            {
+                document.getElementById("GymEmail").style.border = "solid 1px red";
+            }
+            else{
+                document.getElementById("GymEmail").style.border = "none";
+            }
+        }
+        else{
 
         fetch('https://us-central1-carte-gym.cloudfunctions.net/app/CreateGym', {
             method: 'POST',
@@ -52,11 +119,12 @@ class CreateGym extends React.Component{
                 console.log(data._path.segments[1]);
                 this.setState({GYMDocID: data._path.segments[1]});
                 this.AddRoles();
-
+                this.props.onSubmit();
              })
              .catch((err) => {
                 console.log(err.message);
              });
+        }
     }
     
     
@@ -109,84 +177,79 @@ class CreateGym extends React.Component{
     render(){
         return (
             <>
-            <div className="Background">
+            <div className="FormBG">
             <div className="Form">
-                <div className="Logo"></div>
-                <h3>Create Gym</h3>
-                <table>
-                    <tr>
-                        <td>
+                <div className="Header">
+                    <h3>Introduce New Gym</h3>
+                </div>
+                <div className="FieldsArea">
+                    <div className="FieldRow">
+                        
+                            <b>
                             Gym Name
-                        </td>
-                        <td>
+                        </b>
                             <input name="GymName" id="GymName" type="text" placeholder="Gym Name"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                        <div className="FormFieldDivider"></div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Address 1
-                        </td>
-                        <td>
+                        </b>
                             <input name="Address1" id="Address1" type="text" placeholder="Address 1"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Address 2
-                        </td>
-                        <td>
+                        </b>
                             <input name="Address2" id="Address2" type="text" placeholder="Address 2"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             City
-                        </td>
-                        <td>
+                        </b>
                             <input name="City" id="City" type="text" placeholder="City"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             State
-                        </td>
-                        <td>
+                        </b>
                             <input name="State" id="State" type="text" placeholder="State"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Country
-                        </td>
-                        <td>
+                        </b>
                             <input name="Country" id="Country" type="text" placeholder="Country"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                        
+                        <div className="FormFieldDivider"></div>
+                   
+                    <div className="FieldRow">
+                        
+                            <b>
                             Official Phone
-                        </td>
-                        <td>
+                        </b>
                             <input name="GymPhone" id="GymPhone" type="phone" placeholder="Official Phone"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Official Email
-                        </td>
-                        <td>
+                        </b>
                             <input name="GymEmail" id="GymEmail" type="email" placeholder="Official Email" ></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-
-                        </td>
-                        <td>
+                        </div>
+                    <div className="ButtonArea">
+                     
                         <input type="button" value="Create Gym" onClick={this.CreateGym}></input>
-                        </td>
-                    </tr>
-                </table>
+                        <input type="button" value="Cancel" onClick={this.props.onSubmit}></input>                        
+                   
+                        </div>
+                </div>
             </div>
             </div>
             </>

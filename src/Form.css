@@ -87,6 +87,18 @@
     background-color: whitesmoke;
 }
 
+
+.Form .FieldsArea .FieldRow input[type=phone]{
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+
+.Form .FieldsArea .FieldRow input[type=email]{
+    width: 100%;
+    background-color: whitesmoke;
+}
+
 .Form .ButtonArea{
     display: flex;
     flex-wrap: wrap;

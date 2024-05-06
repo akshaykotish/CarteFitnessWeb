@@ -17,6 +17,7 @@ import Login from "../Account/Login";
 import SignUp from "../Account/Signup";
 import Cookies from "../AdminSide/Cookies";
 import TextLoader from "../textloaderwaiting";
+import CreateGym from "../AdminSide/CreateGym";
 
 class Home extends React.Component{
 
@@ -27,6 +28,7 @@ class Home extends React.Component{
 
         this.state = {
             Bricks: [],
+            ModalIndex: 0
         };
     }
 
@@ -36,8 +38,10 @@ class Home extends React.Component{
     }
 
 
-    ModalShow(){
+    ModalShow(e){
+      this.setState({ModalIndex: e});
       document.getElementById("MainModal").style.display = "flex";
+      
     }
 
      componentDidMount(){
@@ -64,8 +68,19 @@ class Home extends React.Component{
               </div>
               <div className="MainBox">
                   <div className="CBLeft">
-                    <div onClick={this.ModalShow}>
+                    <div className="CBLeftButtons">
+                    <div className="CBLeftButton" onClick={()=>this.ModalShow(0)}>
+                      New Gym
+                    </div>
+                    <div className="CBLeftButton" onClick={()=>this.ModalShow(1)}>
+                      New Plan
+                    </div>
+                    <div className="CBLeftButton" onClick={()=>this.ModalShow(1)}>
+                      New Client
+                    </div>
+                    <div className="CBLeftButton" onClick={()=>this.ModalShow(1)}>
                       New Subscription
+                    </div>
                     </div>
                   </div>
                   <div className="CBRight">
@@ -83,7 +98,11 @@ class Home extends React.Component{
               </div>
             </div>
             <div id="MainModal" className="MODAL">
-                <CreateSubscription onSubmit={this.ModalHide}/>
+              {
+                this.state.ModalIndex == 0 ?
+                <CreateGym onSubmit={this.ModalHide}/>
+                  : <CreateSubscription onSubmit={this.ModalHide}/>
+              }
             </div>
             </>
         );

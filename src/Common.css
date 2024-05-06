@@ -462,3 +462,30 @@ a{
     flex-direction: row;
     display:none;
 }
+
+.CBLeftButtons{
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.CBLeftButton{
+    margin: 2%;
+    padding: 1%;
+    text-align: center;
+    font-size: 9pt;
+    font-weight: bold   ;
+    height: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+    background-color:rgb(77, 172, 255);
+    box-shadow: 2px 2px 3px rgb(188, 188, 188);
+    color: white;
+    cursor: pointer;
+}
