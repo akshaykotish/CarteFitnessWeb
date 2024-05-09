@@ -1,6 +1,7 @@
 import React from "react";
 import "./ManageGym.css";
 import TextLoader from "../textloaderwaiting";
+import NavStripe from "../NavStripe";
 
 class ManageGym extends React.Component{
 
@@ -11,7 +12,6 @@ class ManageGym extends React.Component{
             isLoadGymCalled: false,
             Gyms: [],
         };
-        
     }
 
     
@@ -84,11 +84,12 @@ class ManageGym extends React.Component{
             this.state.isLoadGymCalled = true;
             this.load_myGyms();
         }
+        
     }
 
     OnClickGymBox = (data)=>{
         document.cookie = "GymDocID=" + data._ref._path.segments[1];
-        window.location.href="/GymPage";
+        window.location.href="/GymDashboard";
         //alert(data._ref._path.segments[1]);
     }
 

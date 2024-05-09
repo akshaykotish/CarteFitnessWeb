@@ -131,7 +131,7 @@ class CreateSubscription extends React.Component{
                 console.log(data._path.segments[1]);
 
                 this.props.onSubmit();
-                //window.location.href="/GymPage";
+                //window.location.href="/GymPlans";
              })
              .catch((err) => {
                 console.log(err.message);

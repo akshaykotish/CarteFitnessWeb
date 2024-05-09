@@ -99,6 +99,17 @@
     background-color: whitesmoke;
 }
 
+.Form .FieldsArea .FieldRow input[type=date]{
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+
+.Form .FieldsArea .FieldRow select{
+    width: 100%;
+    background-color: whitesmoke;
+}
+
 .Form .ButtonArea{
     display: flex;
     flex-wrap: wrap;

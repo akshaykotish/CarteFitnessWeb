@@ -2,13 +2,16 @@ import React from "react";
 import ClientCard from "./ClientCard";
 import NavMenu from "./NavMenu";
 import TextLoader from '../textloaderwaiting';
-
+import Cookies from "./Cookies";
 class Subscribers extends React.Component{
 
 
     
     constructor(props){
         super(props);
+        this.cookies = new Cookies();
+
+        this.queryparams = new URLSearchParams(window.location.search);
 
         this.state = {
             isLoadGymCalled: false,
@@ -35,7 +38,7 @@ class Subscribers extends React.Component{
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                this.state.Gyms.push(data);this.state.Bricks.push(data._fieldsProto.GymName.stringValue + ";/GymPage");
+                this.state.Gyms.push(data);this.state.Bricks.push(data._fieldsProto.GymName.stringValue + ";/GymPlans");
                 this.setState({Gyms: this.state.Gyms, Bricks: this.state.Bricks});
             })
             .catch((err) => {
@@ -47,33 +50,54 @@ class Subscribers extends React.Component{
     componentDidMount(){
         if(this.state.isLoadGymCalled == false){
             this.state.isLoadGymCalled = true;
-            
-            var GymDocID = this.getcookie("GymDocID");
-            var SubDocID = this.getcookie("SubDocID");
+
+            var GymDocID = this.cookies.getcookie("GymDocID"); 
             this.loadGYM(GymDocID);
-            this.LoadSubscribers(GymDocID, SubDocID);
+                
+
+            var ToSearchAll = this.queryparams.get("SearchAll");
+            if(ToSearchAll != undefined && ToSearchAll == "YES")
+            {
+                this.LoadAllSubscriptions(GymDocID);
+                alert("HELL");
+            }
+            else{   
+                var SubDocID = this.cookies.getcookie("SubDocID");
+                this.LoadSubscribers(GymDocID, SubDocID);
+            }
         }
     }
 
-    getcookie = (cname) => {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-          let c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
-        }
-        return "";
-      }
+    LoadAllSubscriptions = async (GymDocID) => {
+        var response = await fetch('https://us-central1-carte-gym.cloudfunctions.net/app/GetSubscription', {
+            method: 'POST',
+            body: JSON.stringify({
+                "GymDocID": GymDocID,
+            }),
+            headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+
+        response = await response.json()
+        //console.log(response);
+
+        console.log("S");
+        await response.map(async (r)=>{
+            var SubDocID = r._ref._path.segments[3];
+            await this.LoadSubscribers(GymDocID, SubDocID)
+            console.log("D");
+        });
+        setTimeout(()=>{
+            console.log("M");
+            this.LoadIndividualPersons();
+        }, 1000);
+        
+    }
 
 
-      LoadSubscribers(GymDocID, SubDocID){
-        fetch('https://us-central1-carte-gym.cloudfunctions.net/app/Subscribers', {
+      async LoadSubscribers(GymDocID, SubDocID){
+        var response = await fetch('https://us-central1-carte-gym.cloudfunctions.net/app/Subscribers', {
             method: 'POST',
             body: JSON.stringify({
                 "GymDocID": GymDocID,
@@ -82,26 +106,21 @@ class Subscribers extends React.Component{
             headers: {
             'Content-type': 'application/json; charset=UTF-8',
             },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("UPDATE");
-                console.log(data);
-                this.state.Subscribers.push(data);
-                this.setState({Subscribers: this.state.Subscribers});
-                this.LoadIndividualPersons();
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
+        });
+        var data = await response.json();
+        await this.state.Subscribers.push(data);
+        console.log("Added");
       }
 
       LoadIndividualPersons(){
+        console.log("SAHIB")
         var Subscribers = this.state.Subscribers;
-        console.log(Subscribers[0].length);
-        for(let i=0; i<Subscribers[0].length; i++)
-        {
-            this.LoadtoDisplayTheSubscriber(Subscribers[0][i]);
+        for(let j=0; j<Subscribers.length; j++){
+            for(let i=0; i<Subscribers[j].length; i++)
+            {
+                console.log(Subscribers[j][i]);
+                this.LoadtoDisplayTheSubscriber(Subscribers[j][i]);
+            }
         }
       }
 
@@ -203,14 +222,14 @@ class Subscribers extends React.Component{
                         return (
                             <>
                                 <ClientCard 
-                                AccountData={data.AccountData}
-                                OrderData={data.OrderData}
-                                ClientName={data.AccountData._fieldsProto.FullName.stringValue} 
-                                ExpiryDate={date.toString()} 
-                                Phone={data.AccountData._fieldsProto.Phone.stringValue}
-                                PaymentStatus={data.OrderData.PaymentStatus.stringValue} 
-                                PaymentRecieved={data.OrderData.PaymentReceived.stringValue}
-                                PaymentMehthod={data.OrderData.PaymentMethod.stringValue}
+                                    AccountData={data.AccountData}
+                                    OrderData={data.OrderData}
+                                    ClientName={data.AccountData._fieldsProto.FullName.stringValue} 
+                                    ExpiryDate={date.toString()} 
+                                    Phone={data.AccountData._fieldsProto.Phone.stringValue}
+                                    PaymentStatus={data.OrderData.PaymentStatus.stringValue} 
+                                    PaymentRecieved={data.OrderData.PaymentReceived.stringValue}
+                                    PaymentMehthod={data.OrderData.PaymentMethod.stringValue}
                                 ></ClientCard>
                             </>
                         );

@@ -2,18 +2,7 @@ import './App.css';
 import './Common.css';
 import './Form.css';
 import './Card.css';
-import Signup from './Account/Signup';
-import Login from './Account/Login';
 import Home from './ClientSide/Home';
-import CreateGym from './AdminSide/CreateGym';
-import GymPage from './AdminSide/GymPage';
-import CreateSubscription from './AdminSide/CreateSubscription';
-import SubscriptionOrder from './AdminSide/SubscriptionOrder';
-import PrivacyPolicy from './ClientSide/PrivacyPolicy';
-import RequestDateDeletion from './ClientSide/RequestDateDeletion';
-import Subscribers from './AdminSide/Subscribers';
-import Person from './AdminSide/Person';
-
 import {
   Switch,
   Route,
@@ -57,7 +46,7 @@ function App() {
                 <Route path="/SignUp" element={<Signup />} />
                 <Route path="/Login" element={<Login />} />
                 <Route path="/CreateGym" element={<CreateGym />} />
-                <Route path="/GymPage" element={<GymPage />} />
+                <Route path="/GymPlans" element={<GymPlans />} />
                 <Route path="/CreateSubscription" element={<CreateSubscription />} />
                 <Route path="/SubscriptionOrder" element={<SubscriptionOrder />} />
                 <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />

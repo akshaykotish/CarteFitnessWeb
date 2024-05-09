@@ -149,7 +149,11 @@ class SubscriptionOrder extends React.Component{
     DisplaySubscriptions = ()=>{
         if(this.state.Subscriptions.length == 0)
         {
-            return (<>Waiting</>);
+            return (<>
+            <select id="SubscriptionSelected" onChange={this.onSubscriptionChanged}>
+                <option>Loading...</option>
+            </select>
+            </>);
         }
         else{
             return (
@@ -295,9 +299,54 @@ class SubscriptionOrder extends React.Component{
 
 
 
-        if(FullName == "" || Phone == "" || SubscriptionSelected.value == "Select" || StartDate == undefined || EndDate == undefined)
+        if(FullName == "" || Phone == "" ||  SubscriptionSelected.value == "Select" || StartDate == undefined || EndDate == undefined || StartDate == "" || EndDate == "")
         {
-            alert("Kindly check Full Name, Phone, Subscription Plan, Start Date & End Date carefully.");
+            if(FullName == "")
+            {
+                document.getElementById("FullName").style.border = "solid 1px red";
+            }
+            else
+            {
+                document.getElementById("FullName").style.border = "none";
+            }
+
+            if(Phone == "" || Phone.length < 10)
+                {
+                    document.getElementById("Phone").style.border = "solid 1px red";
+                }
+                else
+                {
+                    document.getElementById("Phone").style.border = "none";
+                }
+
+                if(SubscriptionSelected.value == "Select")
+                    {
+                        document.getElementById("SubscriptionSelected").style.border = "solid 1px red";
+                    }
+                    else
+                    {
+                        document.getElementById("SubscriptionSelected").style.border = "none";
+                    }
+
+                if(StartDate == undefined || StartDate == "")
+                        {
+                            document.getElementById("StartDate").style.border = "solid 1px red";
+                        }
+                        else
+                        {
+                            document.getElementById("StartDate").style.border = "none";
+                        }
+
+                if(EndDate == undefined || EndDate == "")
+                {
+                    document.getElementById("EndDate").style.border = "solid 1px red";
+                }
+                else
+                {
+                    document.getElementById("EndDate").style.border = "none";
+                }
+
+
         }
         else{
             SubscriptionPlan = this.state.Subscriptions[SubscriptionSelected.value]._ref._path.segments[3];
@@ -327,7 +376,7 @@ class SubscriptionOrder extends React.Component{
                     var data = await this.CreateOrder(AccountDocID, GymDocID, SubscriptionDocID, "-", Discount, "-", taxper, Price, StartDate, EndDate, "Active", Note, "", PaymentReceived, PaymentMethod, "", "", "", new Date());
                     var OrderDocID = await data._path.segments[3];
                     this.LinkGymSubscriptionToProfile(AccountDocID, GymDocID, SubscriptionDocID, OrderDocID, EndDate, new Date());
-                    window.location.href="/GymPage";
+                    this.props.onSubmit();
             });
         }
     }
@@ -360,104 +409,98 @@ class SubscriptionOrder extends React.Component{
     render(){
         return (
             <>
-            <div className="Background">
-            <NavMenu Bricks={[]}></NavMenu>
+            <div className="FormBG">
             <div className="Form">
-                <h3>{this.DisplayGym()} Make New Subscription Order</h3>
-                <table>
-                    <tr>
-                        <td>
+                <div className="Header">
+                    <h3>Subscription Order</h3>
+                </div>
+                <div className="FieldsArea">
+                    <div className="FieldRow">
+                        
+                            <b>
                             Full Name
-                        </td>
-                        <td>
+                        </b>
                             <input name="FullName" id="FullName" type="text" placeholder="Full Name"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Phone Number
-                        </td>
-                        <td>
+                        </b>
                             <input name="Phone" id="Phone" type="text" placeholder="Phone"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                        <div className="FormFieldDivider"></div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Subscription Plan
-                        </td>
-                        <td>
+                        </b>
                             {this.DisplaySubscriptions()}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Cost
-                        </td>
-                        <td>
+                        </b>
                             <input name="Cost" id="Cost" type="number" className="RuppeeSymbol" onChange={this.DoCalculate} placeholder="0"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Discount
-                        </td>
-                        <td>
+                        </b>
                             <input name="Discount" id="Discount" type="number" className="PercentSymbol" onChange={this.DoCalculate} placeholder="0"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Tax
-                        </td>
-                        <td>
+                        </b>
                             <input name="Tax" id="Tax" type="number" className="PercentSymbol" onChange={this.DoCalculate} placeholder="0"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Price
-                        </td>
-                        <td>
+                        </b>
                             <input name="Price" id="Price" type="number" className="RuppeeSymbol" onChange={this.DoCalculate} placeholder="0"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                        <div className="FormFieldDivider"></div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Days
-                        </td>
-                        <td>
+                        </b>
                             <input name="Days" id="Days" type="text" readOnly="true" placeholder="0"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Month
-                        </td>
-                        <td>
+                        </b>
                             <input name="Month" id="Month" type="text" readOnly="true" placeholder="0"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                        <div className="FormFieldDivider"></div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Start Date
-                        </td>
-                        <td>
+                        </b>
                             <input name="StartDate" id="StartDate" type="date" onChange={this.onDateChange}></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             End Date
-                        </td>
-                        <td>
+                        </b>
                             <input name="EndDate" id="EndDate" type="date"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                        <div className="FormFieldDivider"></div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Payment Method
-                        </td>
-                        <td>
+                        </b>
                             <select id="PaymentMethod">
                                 <option value="Online">
                                     Online
@@ -466,13 +509,12 @@ class SubscriptionOrder extends React.Component{
                                     Cash
                                 </option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Payment Recieved
-                        </td>
-                        <td>
+                        </b>
                             <select id="PaymentRecieved">
                                 <option value="Yes">
                                     Yes
@@ -481,23 +523,22 @@ class SubscriptionOrder extends React.Component{
                                     No
                                 </option>
                             </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        
+                            <b>
                             Payment Note/ID
-                        </td>
-                        <td>
+                        </b>
                             <input name="Pay_Note" id="Pay_Note" type="text" placeholder="Payment Note"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
+                        </div>
+                    
+                    <div className="ButtonArea">
                             <input type="button" value="Create Subscription" onClick={this.CreateSubscriptionOrder}></input>
-                        </td>
-                    </tr>
-                </table>
+                            <input type="button" value="Cancel" onClick={this.props.onSubmit}></input>                        
+                   
+                        </div>
+                    
+                </div>
             </div>
             </div>
             </>

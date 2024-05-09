@@ -1,9 +1,9 @@
 import React from "react";
-import "./GymPage.css";
 import NavMenu from "./NavMenu";
 import TextLoader from "../textloaderwaiting";
+import NavStripe from "../NavStripe";
 
-class GymPage extends React.Component{
+class GymDashboard extends React.Component{
 
     constructor(props){
         super(props);
@@ -12,8 +12,10 @@ class GymPage extends React.Component{
             isLoadGymCalled: false,
             Gyms: [],
             Subscriptions: [],
-            Bricks: []
+            Bricks: [],
         };
+
+        
         
     }
 
@@ -174,7 +176,9 @@ class GymPage extends React.Component{
             <>
             <div className="CardsBox">
                 <div className="Cards">
-                    {this.DisplaySubscriptions()}
+                    <div className="Card" onClick={()=>{window.location.href="/GymPlans";}}>
+                        Plans
+                    </div>
                 </div>
             </div>
             </>
@@ -184,4 +188,4 @@ class GymPage extends React.Component{
 }
 
 
-export default GymPage;
+export default GymDashboard;
