@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "carte-gym",
+  "private_key_id": "cd0b61bb71a608a67f3d7d263d52e0d726698352",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCdLWo2QTixGqpy\nCd+VVV/1u+Ya6e2IlhuwKcjEc/IIFkn+Yj5S559KuYSbwh/GwaZUYCUzbnedk4G4\nnzpPkQo+kNzfP2dZN8mkB6BT3bT8gfOtfNtScm/zyAgtXQy2laXaWe6foNVCYgEQ\n0XOfw2FVIkHwGT9TJVTYUSHvX5e9p5KXEQuTWvL2W7KpwNI3tz0u5FDaLAfIDc4G\nmkzWkDH9+fR5lePxTSgLWVc+pqUqBsazDdf9EEf90Xlh322/MzhvtO3yQ9Efmegd\noZmCghwR8Fi0YelC5E96Yfw7AN5ZE7PHYbD9ZHfk67omwEdwNJMoi0Y+WcLsYm11\nwEXVBbCNAgMBAAECggEAGBqnX7On4I0w13VJKwshQLu0oar/SQOQMndt+Sa41uGo\nLlFdsnQf+yMxQXvHSMFY4zatbdJCmNFOwwP0OtCI7ChmHvyHumhyTWv3+/STtWeu\neYwczGuNXKrwChjrgrK3cSF6lVNicSA7fptIapdZfWdYClys1/DxLo1esWmNCUIE\ngj14dumKxKXi1tuRb+JW/ihXHGZRbhXP7Ha9e0EvMu9hp/sKePqMvEY/JivztGxf\nQwYW0KuF3EDtsLIhlIUakU5LWvy2obzLrWPUJfGLKE3kyXzEA0jx7qOnDRYAX4Wu\nCXVWO5gBGgH/kPOzCl3F3u5igp5DnRiRMyGGbv5A8QKBgQDSYo0yQXm5mHNmkjmF\nSLU6PWJ0F0y8w8BjsqYXjpnXJTy0Xv3aBSkOQDwVhJt2SCs6B5f0VPpLhZ1jpl8z\ngQgNr1ti6ym9YCNP5enn2TeC93qdUKMDnPjVI/68ambjRmpC1+vAKZjDGEkkg/PI\npX6ZtG+JuG5xHeV7b7cqOGvstQKBgQC/QZHT1XBx69E1L9slDzWYGpJFlSChpbvY\noy2vh/R1W/p7M3LtnEmnIDOsameluNwHWvMFgF4OgkuluAqUud2avRFG1W5SFx/0\ntlKl6XyymqSsY9iiyNRU5HO8tSedh1hJsXdzj5cQj0WjOeakTzr62WoJclMijEvN\nuMm1PefzeQKBgA3qhOpxGEslgWSkgXeGgq5ShyOksue9jwlJNOFUBmsLxIMt0V7N\nfpS5vP+zYNEnHuzcublosZGzSeDgjWWLwGufUM0vPviO1mcfjyRN4vUfx5WGUvIX\nPQJkOiJea2XXL4oyXB6+4aLuBVCMBeEcyU4DeGlEsNF8p8RNdHEvgDwNAoGAamLn\n4kS8+rGpOwO2zAOM1WIacVhFwYU2W4hRdm2S3uFeEMAKsv+XvL5d4A+EPhv5UKIX\nwryoFTwHJlScliRZj6SSAqvgZQt1/CKbEK0zbwo0haw4qjw6WEqH0rWWJrtNshhk\nkMSTzGNV4jjoAggMj9L2d/C/K92MoQ+kLAwWhUkCgYB38r1dN3nE1DVmbKWh0tSe\nZ4dU7+jZWJddD0YDuXAXNA18EPkuoG8B9hbA43iw4RFAgCXYQ6Ue/FJviGBqBW8I\nMXCTgwiGG/i3k18zx8aFgbbZ/UQooCaSHvFBk4ejOqbdsIiPeJBqPTB5ASqyE0gW\nOdUBNaBwRcAcw7QLDq4jVA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-a1ro3@carte-gym.iam.gserviceaccount.com",
+  "client_id": "116521834326716291137",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-a1ro3%40carte-gym.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
