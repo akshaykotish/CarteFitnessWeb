@@ -3,6 +3,7 @@ import ClientCard from "./ClientCard";
 import NavMenu from "./NavMenu";
 import TextLoader from '../textloaderwaiting';
 import Cookies from "./Cookies";
+import LoadingStrip from "../LoadingStrip";
 class Subscribers extends React.Component{
 
 
@@ -59,11 +60,14 @@ class Subscribers extends React.Component{
             if(ToSearchAll != undefined && ToSearchAll == "YES")
             {
                 this.LoadAllSubscriptions(GymDocID);
-                alert("HELL");
             }
             else{   
                 var SubDocID = this.cookies.getcookie("SubDocID");
                 this.LoadSubscribers(GymDocID, SubDocID);
+                setTimeout(()=>{
+                    console.log("M");
+                    this.LoadIndividualPersons();
+                }, 1000);
             }
         }
     }
@@ -185,7 +189,7 @@ class Subscribers extends React.Component{
 
         if(this.state.ToDisplaySubscriber.length == 0){
             return (
-                <TextLoader text="Carte..." intervalTime={500} />
+                <LoadingStrip></LoadingStrip>
             );
         }
         else{
@@ -246,7 +250,12 @@ class Subscribers extends React.Component{
 
     render(){
         return (
+            
             <div className="CardsBox">
+                <div className="CardsBoxTitle">
+                    <h3>Subscribers&nbsp;</h3>
+                    <p>&nbsp;|&nbsp;Daily, Weekly, Monthly & Yearly</p>
+                </div>
                 <div className="CardsBoxTitle">
                     <div className="SearchBar">
                         <input id="SearchTxt" placeholder="Search your query" width="100%" type="text" onChange={this.DoSearch}></input>

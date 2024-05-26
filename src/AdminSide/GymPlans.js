@@ -3,6 +3,7 @@ import "./GymPlans.css";
 import NavMenu from "./NavMenu";
 import TextLoader from "../textloaderwaiting";
 import NavStripe from "../NavStripe";
+import LoadingStrip from "../LoadingStrip";
 
 class GymPlans extends React.Component{
 
@@ -82,7 +83,7 @@ class GymPlans extends React.Component{
     DisplayGym(){
         if(this.state.Gyms.length == 0)
         {
-            return (<>...</>);
+            return (<LoadingStrip></LoadingStrip>);
         }
         else{
             return (
@@ -128,7 +129,7 @@ class GymPlans extends React.Component{
     DisplaySubscriptions = ()=>{
         if(this.state.Gyms.length == 0)
         {
-            return <TextLoader text="Carte..." intervalTime={500} />;
+            return (<LoadingStrip></LoadingStrip>);
         }
         else{
             return (
@@ -138,10 +139,16 @@ class GymPlans extends React.Component{
                             <div className="Card SubscriptionDesign" key={data._fieldsProto.SubScriptionNameIn.stringValue} onClick={()=>this.OnClickOnSubscribers(data)}>
                                 <div className="CardCover">
                                 <div className="Icon">
-                                    {data._fieldsProto.Months.stringValue}
+                                    {data._fieldsProto.Months.stringValue}.{data._fieldsProto.Days.stringValue}
+                                    <div className="IconSmallText">Months</div>
                                 </div>
                                 <div className="Text">
-                                    <h3>{data._fieldsProto.SubScriptionNameIn.stringValue}</h3>
+                                    <div className="HeadText">{data._fieldsProto.SubScriptionNameIn.stringValue}</div>
+                                    <div className="SubText">
+                                        <b>₹ {data._fieldsProto.Price.stringValue}</b> per <u>{data._fieldsProto.Months.stringValue} Months</u> + <u>{data._fieldsProto.Days.stringValue} Days</u>
+                                        <br/>
+                                        {data._fieldsProto.Details.stringValue}
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -176,6 +183,10 @@ class GymPlans extends React.Component{
         return (
             <>
             <div className="CardsBox">
+                <div className="CardsBoxTitle">
+                    <h3>Subscription Plans&nbsp;</h3>
+                    <p>&nbsp;|&nbsp;Daily, Weekly, Monthly & Yearly</p>
+                </div>
                 <div className="Cards">
                     {this.DisplaySubscriptions()}
                 </div>

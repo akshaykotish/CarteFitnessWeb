@@ -17,7 +17,7 @@ class NavStripe extends React.Component{
                     this.props.BackLinks.map((bl)=>{
                         return (
                             <div className="NavStripe-item">
-                                <a href={bl.link}>{bl.name}</a>>>
+                                <a href={bl.link}>{bl.name}</a>
                             </div>
                         );
                     })

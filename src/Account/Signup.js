@@ -1,13 +1,29 @@
-import React from "react"; 
-import "./Signup.css";
+import React from "react";
+import LoadingStrip from "../LoadingStrip";
 
 class Signup extends React.Component{
 
-    CreateAccount(){
+    constructor(props)
+    {
+        super(props);
+        this.state={
+            isloading: false,
+            message: ''
+        };
+    }
+
+
+    CreateAccount = ()=>{
+        this.setState({isloading: true});
         var fullname = document.getElementById("FullName").value;
         var phonenumber = document.getElementById("PhoneNumber").value;
         var email = document.getElementById("Email").value;
         var password = document.getElementById("Password").value;
+
+        if(fullname == "" || phonenumber == "" || email == "" || password == "")
+            {
+                this.setState({isloading: false, message: 'Kindly insert your phone number and password properly.'});
+            }
         
         fetch('https://us-central1-carte-gym.cloudfunctions.net/app/Signup', {
             method: 'POST',
@@ -38,57 +54,51 @@ class Signup extends React.Component{
     render(){
         return (
             <>
-            <div className="Background">
-            <div className="SignUpForm">
-                <h1>Carte Fitness</h1>
-                <h4>Signup</h4>
-                <table>
-                    <tr>
-                        <td>
-                            Full Name
-                        </td>
-                        <td>
+            <div className="LoginBackground">
+            <div className="LoginForm">
+            <div className="Header">
+                    <h1>Sign Up</h1>
+                </div>
+                <div className="LoginFieldArea">
+                    <div className="FieldRow">
+                        <b>Full Name</b> 
                             <input name="FullName" id="FullName" type="text"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Phone Number
-                        </td>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        <b>Phone  Number</b> 
                             <input name="PhoneNumber" id="PhoneNumber" type="text"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        <b>
                             Email
-                        </td>
-                        <td>
+                        </b> 
                             <input name="Email" id="Email" type="text"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        <b>
                             Password
-                        </td>
-                        <td>
+                        </b> 
                             <input name="Password" id="Password" type="text"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <input type="button" value="Sign Up" onClick={this.CreateAccount}></input>
-                    </tr>
-                    <tr>
-                        <td>
-                            If already registered <a href="Login">Login</a>
-                        </td>
-                        <td>
-
-                        </td>
-                    </tr>
-                </table>
+                    </div>
+                    <div className="ButtonArea">
+                    <input type="button" value="Sign Up" onClick={this.CreateAccount}></input>
+                        <br/>
+                        If you already have an account <a href="Login">Login</a>
+                    </div>
+                    {
+                        this.state.isloading == true ? 
+                        <div className="LoadingStripArea">
+                            <LoadingStrip></LoadingStrip>
+                        </div>
+                        :
+                        <div className="MessageBox">
+                            {this.state.message}
+                        </div>
+                    }
             </div>
             </div>
+        </div>
+        
             </>
         );
     }

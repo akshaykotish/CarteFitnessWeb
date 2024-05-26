@@ -1,0 +1,63 @@
+/* LoadingStrip.css */
+.loading-container {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    overflow: hidden;
+    background-color: #e0e0e0; /* Light grey background */
+  }
+  
+  .loading-strip {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: loading 5s infinite linear;
+  }
+  
+  @keyframes loading {
+    0% {
+      background-color: #ff6a00;
+      transform: translateX(-100%);
+    }
+    10% {
+      background-color: #ff006a;
+      transform: translateX(0%);
+    }
+    20% {
+      background-color: #6a00ff;
+      transform: translateX(100%);
+    }
+    30% {
+      background-color: #00ff6a;
+      transform: translateX(200%);
+    }
+    40% {
+      background-color: #00ff00;
+      transform: translateX(300%);
+    }
+    50% {
+      background-color: #00ffff;
+      transform: translateX(400%);
+    }
+    60% {
+      background-color: #0000ff;
+      transform: translateX(500%);
+    }
+    70% {
+      background-color: #ff00ff;
+      transform: translateX(600%);
+    }
+    80% {
+      background-color: #ffff00;
+      transform: translateX(700%);
+    }
+    90% {
+      background-color: #ff0000;
+      transform: translateX(800%);
+    }
+    100% {
+      background-color: #ff6a00;
+      transform: translateX(900%);
+    }
+  }
+  

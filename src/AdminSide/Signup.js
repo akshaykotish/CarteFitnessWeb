@@ -1,5 +1,6 @@
 import React from "react"; 
-import "./Signup.css";
+import "./Form.css";
+import "./Common.css"
 
 class Signup extends React.Component{
 
@@ -44,48 +45,40 @@ class Signup extends React.Component{
     render(){
         return (
             <>
-            <div className="Background">
-            <div className="SignUpForm">
-                <h1>SignUp</h1>
-                <table>
-                    <tr>
-                        <td>
-                            Full Name
-                        </td>
-                        <td>
+            <div className="LoginBackground">
+            <div className="LoginForm">
+            <div className="Header">
+                    <h1>Sign Up</h1>
+                </div>
+                <div className="LoginFieldArea">
+                    <div className="FieldRow">
+                        <b>Phone Number</b> 
                             <input name="FullName" id="FullName" type="text"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Phone Number
-                        </td>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        <b>Phone  Number</b> 
                             <input name="PhoneNumber" id="PhoneNumber" type="text"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        <b>
                             Email
-                        </td>
-                        <td>
+                        </b> 
                             <input name="Email" id="Email" type="text"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        </div>
+                    <div className="FieldRow">
+                        <b>
                             Password
-                        </td>
-                        <td>
+                        </b> 
                             <input name="Password" id="Password" type="text"></input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <input type="button" value="Sign Up" onClick={this.CreateAccount}></input>
-                    </tr>
-                </table>
+                    </div>
+                    <div className="ButtonArea">
+                    <input type="button" value="Sign Up" onClick={this.CreateAccount}></input>
+                        <br/>
+                        If you don't have account <a href="Signup">Signup</a>
+                    </div>
             </div>
             </div>
+        </div>
             </>
         );
     }

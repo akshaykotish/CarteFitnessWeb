@@ -1,13 +1,26 @@
 import React from "react"; 
-import "./Login.css";
-
+import LoadingStrip from "../LoadingStrip";
 class Login extends React.Component{
 
+    constructor(props)
+    {
+        super(props);
+        this.state={
+            isloading: false,
+            message: ''
+        };
+    }
 
-    Login(){
+    Login = ()=>{
+        this.setState({isloading: true});
         var phonenumber = document.getElementById("PhoneNumber").value;
         var password = document.getElementById("Password").value;
         
+        if(phonenumber == "" || password == "")
+        {
+            this.setState({isloading: false, message: 'Kindly insert your phone number and password properly.'});
+        }
+
         fetch('https://us-central1-carte-gym.cloudfunctions.net/app/Login', {
             method: 'POST',
             body: JSON.stringify({
@@ -22,7 +35,8 @@ class Login extends React.Component{
              .then((data) => {
                 //console.log(data);
                 if(data.Status != undefined && data.Status == "False")
-                {
+                {    
+                    this.setState({isloading: false, message: 'You have entered wrong phone number or password.'});
                     console.log(data.Status);
                     console.log("Wrong credentials");
                 }else{
@@ -42,11 +56,11 @@ class Login extends React.Component{
         return (
             <>
             <div className="LoginBackground">
-            <div className="Form">
+            <div className="LoginForm">
                 <div className="Header">
                     <h1>Login</h1>
                 </div>
-                <div className="FieldsArea">
+                <div className="LoginFieldArea">
                     <div className="FieldRow">
                         <b>Phone Number</b> 
                         <input name="PhoneNumber" id="PhoneNumber" type="text" placeholder="Phone"></input>
@@ -58,8 +72,20 @@ class Login extends React.Component{
                 </div>
                 <div className="ButtonArea">
                         <input type="button" value="Login" onClick={this.Login}></input>
+                        <br/>
                         If you don't have account <a href="Signup">Signup</a>
                 </div>
+                {
+                    this.state.isloading == true ? 
+                    <div className="LoadingStripArea">
+                        <LoadingStrip></LoadingStrip>
+                    </div>
+                    :
+                    <div className="MessageBox">
+                        {this.state.message}
+                    </div>
+                }
+                
                 <div className="Footer">
 
                 </div>

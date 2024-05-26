@@ -2,6 +2,7 @@ import React from "react";
 import NavMenu from "./NavMenu";
 import TextLoader from "../textloaderwaiting";
 import NavStripe from "../NavStripe";
+import LoadingStrip from "../LoadingStrip";
 
 class GymDashboard extends React.Component{
 
@@ -81,7 +82,7 @@ class GymDashboard extends React.Component{
     DisplayGym(){
         if(this.state.Gyms.length == 0)
         {
-            return (<>...</>);
+            return (<LoadingStrip></LoadingStrip>);
         }
         else{
             return (
@@ -127,7 +128,7 @@ class GymDashboard extends React.Component{
     DisplaySubscriptions = ()=>{
         if(this.state.Gyms.length == 0)
         {
-            return <TextLoader text="Carte..." intervalTime={500} />;
+            return (<LoadingStrip></LoadingStrip>);
         }
         else{
             return (
@@ -175,9 +176,13 @@ class GymDashboard extends React.Component{
         return (
             <>
             <div className="CardsBox">
+                <div className="CardsBoxTitle">
+                    <h3>Dashboard&nbsp;</h3>
+                    <p>&nbsp;|&nbsp;Analytics & Chart</p>
+                </div>
                 <div className="Cards">
-                    <div className="Card" onClick={()=>{window.location.href="/GymPlans";}}>
-                        Plans
+                    <div className="Card DashboardCardDesign" onClick={()=>{window.location.href="/GymPlans";}}>
+                        Subscription Plans
                     </div>
                 </div>
             </div>

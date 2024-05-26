@@ -15,11 +15,29 @@
 .Form{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     align-content: flex-start;
     overflow: auto;
     flex-direction: row;
+    width: 60vw;
+    height: 70vh;
+    border-radius: 10px;
+    padding: 2%;
+    background-color: rgb(255, 255, 255);
+    animation: FadeinForm 2s;
+}
+
+
+
+.LoginForm{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: auto;
+    flex-direction: column;
     width: 60vw;
     height: 70vh;
     border-radius: 10px;
@@ -37,6 +55,11 @@
     }
 }
 
+.LoadingStripArea{
+    margin: 2%;
+    width: 96%;
+}
+
 .Form .Header{
     width: 100%;
     margin: 1%;
@@ -52,6 +75,24 @@
     align-content: center;
     overflow: auto;
     flex-direction: row;
+}
+
+.LoginFieldArea{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: auto;
+    flex-direction: column;
+}
+
+.LoginFieldArea .FieldRow{
+    width: 100%;
+}
+
+.LoginFieldArea .ButtonArea{
+    width: 100%;
 }
 
 .Form .FieldsArea .FieldRow{

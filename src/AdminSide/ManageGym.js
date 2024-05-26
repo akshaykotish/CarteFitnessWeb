@@ -2,6 +2,7 @@ import React from "react";
 import "./ManageGym.css";
 import TextLoader from "../textloaderwaiting";
 import NavStripe from "../NavStripe";
+import LoadingStrip from "../LoadingStrip";
 
 class ManageGym extends React.Component{
 
@@ -96,7 +97,7 @@ class ManageGym extends React.Component{
     DisplayGyms(){
         if(this.state.Gyms.length == 0)
         {
-            return (<TextLoader text="Carte..." intervalTime={500} />);
+            return (<LoadingStrip></LoadingStrip>);
         }
         else{
             console.log(this.state.Gyms);
@@ -125,13 +126,13 @@ class ManageGym extends React.Component{
                 <div className="ManageGymBackground">
                     <div className="CardsBox">
                         <div className="CardsBoxTitle">
-                            <h3>Pick your gym</h3>
+                            <h3>Home&nbsp;</h3>
+                             <p>&nbsp;|&nbsp;Your Gyms</p>
                         </div>
                         <div className="Cards">
                             {this.DisplayGyms()}
                         </div>
                     </div>
-
                 </div>
             </>
         );
