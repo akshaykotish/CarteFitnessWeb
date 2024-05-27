@@ -164,6 +164,9 @@ class Home extends React.Component{
                         <div className="CBLeftButton" onClick={()=>this.ModalShow(0)}>
                           <b>{this.state.AccountUserName}</b>
                         </div>
+                        <div className="CBLeftButton" onClick={()=>this.LoadPage("/Home")}>
+                          <IoHome /> Home
+                        </div>
                         <div className="CBLeftButton" onClick={()=>this.ModalShow(0)}>
                             <GiGymBag  /> New Gym
                         </div>
@@ -175,11 +178,8 @@ class Home extends React.Component{
                       {
                         this.cookies.getcookie("GymDocID") != "" ? 
                         <>
-                        <div className="CBLeftButton" onClick={()=>this.LoadPage("/Home")}>
+                        <div className="CBLeftButton" onClick={()=>this.LoadPage("/GymDashboard")}>
                           <b>{this.state.GymName}</b> 
-                        </div>
-                        <div className="CBLeftButton" onClick={()=>this.LoadPage("/Home")}>
-                          <IoHome /> Home
                         </div>
                         <div className="CBLeftButton" onClick={()=>this.LoadPage("/GymDashboard")}>
                           <MdSpaceDashboard /> Dashboard
