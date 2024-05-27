@@ -205,11 +205,11 @@ class Home extends React.Component{
                   <div className="CBRight">
                   <BrowserRouter>
                   <Routes>
-                          <Route path="/" element={<ManageGym  />} />
-                          <Route path="/Home" element={<ManageGym  />} />
+                          <Route path="/" element={<ManageGym CreateNewGym={()=>this.ModalShow(0)} />} />
+                          <Route path="/Home" element={<ManageGym CreateNewGym={()=>this.ModalShow(0)}/>} />
                           <Route path="/GymDashboard" element={<GymDashboard  />} />
-                          <Route path="/GymPlans" element={<GymPlans  />} />
-                          <Route path="/Subscribers" element={<Subscribers  />} />
+                          <Route path="/GymPlans" element={<GymPlans CreateNewPlan={()=>this.ModalShow(1)}  />} />
+                          <Route path="/Subscribers" element={<Subscribers CreateNewOrder={()=>this.ModalShow(2)} />} />
                           <Route path="/Person" element={<Person  />} />
                           <Route path="/Login" element={<Login />} />
                           <Route path="/Signup" element={<SignUp />} />

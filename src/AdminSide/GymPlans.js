@@ -188,6 +188,18 @@ class GymPlans extends React.Component{
                     <p>&nbsp;|&nbsp;Daily, Weekly, Monthly & Yearly</p>
                 </div>
                 <div className="Cards">
+                            <div className="Card AddNewAnythingDesign" style={{width: '20vw', height: '10vw'}} onClick={this.props.CreateNewPlan}>
+                                <div className="Text">
+                                    <div className="PlusButton">
+                                        +
+                                    </div>
+                                    Add New Plan
+                                    <br/>
+                                    <span>
+                                        You can create new plan from here.
+                                        </span>
+                                    </div>
+                            </div>
                     {this.DisplaySubscriptions()}
                 </div>
             </div>

@@ -130,6 +130,18 @@ class ManageGym extends React.Component{
                              <p>&nbsp;|&nbsp;Your Gyms</p>
                         </div>
                         <div className="Cards">
+                            <div className="Card AddNewAnythingDesign" style={{width: '15vw', height: '15vw'}} onClick={this.props.CreateNewGym}>
+                                <div className="Text">
+                                    <div className="PlusButton">
+                                        +
+                                    </div>
+                                    Add New Gym
+                                    <br/>
+                                    <span>
+                                        You can create new gym from here.
+                                        </span>
+                                    </div>
+                            </div>
                             {this.DisplayGyms()}
                         </div>
                     </div>

@@ -186,12 +186,12 @@ class CreateSubscription extends React.Component{
             <div className="FormBG">
             <div className="Form">
                 <div className="Header">
-                    <h3>New Subscription</h3>
+                    <h3>New Plan</h3>
                 </div>
                 <div className="FieldsArea">
                     <div className="FieldRow">
                         
-                            <b>Subscription Name</b>
+                            <b>Plan Name</b>
                             <input name="SubscriptionName" id="SubscriptionNameIn" type="text" placeholder="Subscription Name"></input>
                         
                     </div>

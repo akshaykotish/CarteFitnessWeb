@@ -262,6 +262,18 @@ class Subscribers extends React.Component{
                     </div>
                 </div>
                 <div className="Cards">
+                            <div className="Card AddNewAnythingDesign" style={{width: '25vw', height: '15vw'}} onClick={this.props.CreateNewOrder}>
+                                <div className="Text">
+                                    <div className="PlusButton">
+                                        +
+                                    </div>
+                                    New Subscriber/Order
+                                    <br/>
+                                    <span>
+                                        You can create new subscriber or order from here.
+                                        </span>
+                                    </div>
+                            </div>
                     {this.DisplaySubscriber()}
                 </div>
             </div>

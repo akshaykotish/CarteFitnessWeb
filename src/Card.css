@@ -159,3 +159,19 @@
     align-content: center;
     flex-direction: row;
 }
+
+.AddNewAnythingDesign{
+    background-color: whitesmoke;
+    box-shadow: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: row;
+    text-align: center;
+}
+
+.AddNewAnythingDesign .PlusButton{
+    font-size: 40pt;
+}
