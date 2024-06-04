@@ -68,16 +68,19 @@ class Home extends React.Component{
         
         var AccountDocID = this.cookies.getcookie("AccountDocID");
         console.log(AccountDocID);
-        
+
         if(this.state.AccountDocID == "")
         {
           console.log(AccountDocID + " <==");
             window.location.href="/Login";
         }
         else{
-          console.log(AccountDocID + " <G==");
           this.LoadAccount(AccountDocID);
-          this.loadGYM();
+
+          var GymDocID = this.cookies.getcookie("GymDocID");
+          if(GymDocID != undefined && GymDocID != ""){
+            this.loadGYM();
+          }
         }
     }
 
@@ -152,7 +155,14 @@ class Home extends React.Component{
                 {<Logo></Logo>} <div className="LogoText">Carte Fitness App<br/><span className="TagLine">Ultimate Gym Tool</span></div>
                 </div>
                 <div className="AccountControls">
-                  <div className="Logout" onClick={this.logout}><IoMdLogOut /> Logout</div>
+                  {
+                  this.state.AccountUserName != ""
+                   ? <>
+                   <div className="Logout" onClick={this.logout}><IoMdLogOut /> Logout</div>
+                   </>
+                  :
+                  <></> 
+                  }
                 </div>
               </div>
               <div className="MainBox">
