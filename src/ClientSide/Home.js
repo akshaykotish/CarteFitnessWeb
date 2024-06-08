@@ -30,6 +30,7 @@ import { IoHome } from "react-icons/io5";
 import { IoAlbums } from "react-icons/io5";
 import { MdOutlineLocalFireDepartment } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
+import NewRole from "../AdminSide/NewRole";
 
 
 class Home extends React.Component{
@@ -43,7 +44,8 @@ class Home extends React.Component{
             Bricks: [],
             ModalIndex: 0,
             GymName: "",
-            AccountUserName: ""
+            AccountUserName: "",
+            burgermenu: false
         };
     }
 
@@ -143,13 +145,29 @@ class Home extends React.Component{
                     window.location.href="/Login";
     }
 
+    burgermenu = ()=>{
+      var CBLEFT = document.getElementById("CBLEFT");
+      
+        
+      if(this.state.burgermenu == false){
+        CBLEFT.classList.remove("hide");
+        CBLEFT.classList.add("show");
+        this.setState({burgermenu: true});
+      }
+      else{
+        CBLEFT.classList.remove("show");
+        CBLEFT.classList.add("hide");
+        this.setState({burgermenu: false});
+      }
+    }
+
     render(){
         return (
             <>
             <div className="Background">
               <div className="Header">
-                <div className="LeftSideArea">
-
+                <div className="LeftSideArea" onClick={this.burgermenu}>
+                  <div class="menu-btn__burger"></div>
                 </div>
                 <div className="LogoPart">
                 {<Logo></Logo>} <div className="LogoText">Carte Fitness App<br/><span className="TagLine">Ultimate Gym Tool</span></div>
@@ -166,8 +184,9 @@ class Home extends React.Component{
                 </div>
               </div>
               <div className="MainBox">
-                  <div className="CBLeft">
+                  <div id="CBLEFT" className="CBLeft">
                     <div className="CBLeftButtons">
+                      <div className="MobileMenu">Menu</div>
                       {
                         this.cookies.getcookie("AccountDocID") != "" ? 
                         <>
@@ -179,6 +198,9 @@ class Home extends React.Component{
                         </div>
                         <div className="CBLeftButton" onClick={()=>this.ModalShow(0)}>
                             <GiGymBag  /> New Gym
+                        </div>
+                        <div className="CBLeftButton" onClick={this.logout}>
+                            <IoMdLogOut /> Logout
                         </div>
                         <div className="CBLeftButtonDivider"></div>
                         </>
@@ -196,6 +218,9 @@ class Home extends React.Component{
                         </div>
                         <div className="CBLeftButton" onClick={()=>this.ModalShow(1)}>
                           <GrPlan /> New Plan
+                        </div>
+                        <div className="CBLeftButton" onClick={()=>this.ModalShow(3)}>
+                          <GrPlan /> New Role
                         </div>
                         <div className="CBLeftButton" onClick={()=>this.ModalShow(2)}>
                           <FaPersonCirclePlus /> New Subscription
@@ -232,6 +257,7 @@ class Home extends React.Component{
               {
                 this.state.ModalIndex == 0 ? <CreateGym onSubmit={this.ModalHide}/>
                   : this.state.ModalIndex == 1 ? <CreateSubscription onSubmit={this.ModalHide}/> 
+                  : this.state.ModalIndex == 3 ? <NewRole onSubmit={this.ModalHide}/> 
                   : <SubscriptionOrder onSubmit={this.ModalHide}/>
               }
             </div>

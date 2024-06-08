@@ -175,3 +175,51 @@
 .AddNewAnythingDesign .PlusButton{
     font-size: 40pt;
 }
+
+
+@media only screen and (max-width: 480px) {
+
+    .CardsBoxTitle{
+        font-size: 10pt;
+    }
+
+    .Card{
+        width: 99% !important;
+        height: 25vh !important;
+        margin-top: 2%;
+    }
+
+    .SubscriptionDesign{
+        height: 15vh !important;
+    }
+
+    .SubscriptionDesign .Icon{
+        width: 20vw !important;
+        height: 20vw !important;
+        background-color: whitesmoke;
+        flex-direction:column;
+    }
+
+    .CardCover{
+        justify-content: space-around;
+    }
+
+    .SearchBar{
+        width: 94%;
+        height: 5vh;
+        padding-left: 6%;
+        background-size: 5%;
+        
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: center;
+        align-content: center;
+        flex-direction: row;
+    }
+
+    .ClientCard{
+        width: 100%;
+        height: 26vh;
+    }
+}
