@@ -613,6 +613,16 @@ a{
     display: none;
 }
 
+.MobileMenu{
+    display: none;
+}
+
+.OpenSpace{
+    background-color: transparent !important;
+    border: none;
+    box-shadow: none !important;
+}
+
 @media only screen and (max-width: 480px) {
 
     .Background{
@@ -675,6 +685,9 @@ a{
 
     .MainBox .CBRight {
         width: 99%;
+        height: 100vh;
+        overflow: auto;
+        justify-content: flex-start;
     }
 
     
@@ -692,6 +705,11 @@ a{
     }
 
     .Form{
+        width: 90% !important;
+        height: 90% !important;
+    }
+
+    .LoginForm{
         width: 90% !important;
         height: 90% !important;
     }
@@ -714,9 +732,28 @@ a{
     }
 
     .CBLeft .MobileMenu{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+        flex-direction: row;
+        overflow: hidden;
+    }
+
+    .MobileMenu .Title{
         margin-left: 12%;
         margin-top: 8%;
         font-weight: bold;
+    }
+
+    .MobileMenu .CloseBtn{
+        color: red;
+        margin-right: 8%;
+        margin-top: 6%;
+        font-weight: bolder;
+        font-size: 15pt;
     }
 
     .CBLeft .MobileLogout{

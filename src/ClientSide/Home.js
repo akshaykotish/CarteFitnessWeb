@@ -50,8 +50,11 @@ class Home extends React.Component{
     }
 
     ModalHide(){
-      document.getElementById("MainModal").style.display = "none";
-      window.location.reload();
+      setTimeout(()=>{
+        document.getElementById("MainModal").style.display = "none";
+        window.location.reload();
+      }, 2000);
+      
     }
 
 
@@ -186,7 +189,14 @@ class Home extends React.Component{
               <div className="MainBox">
                   <div id="CBLEFT" className="CBLeft">
                     <div className="CBLeftButtons">
-                      <div className="MobileMenu">Menu</div>
+                      <div className="MobileMenu">
+                        <div className="Title">
+                          Menu
+                        </div>
+                        <div className="CloseBtn" onClick={this.burgermenu}>
+                          ❌
+                        </div>
+                      </div>
                       {
                         this.cookies.getcookie("AccountDocID") != "" ? 
                         <>

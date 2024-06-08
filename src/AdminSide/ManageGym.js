@@ -56,7 +56,7 @@ class ManageGym extends React.Component{
 
     load_myGyms = ()=>{
         var AccountDocID = this.getcookie("AccountDocID");
-
+        
         fetch('https://us-central1-carte-gym.cloudfunctions.net/app/MyGyms', {
             method: 'POST',
             body: JSON.stringify({
@@ -68,6 +68,7 @@ class ManageGym extends React.Component{
         })
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 data.forEach(element => {
                     console.log(element._fieldsProto.GYMDocID.stringValue);
                     this.loadGYM(element._fieldsProto.GYMDocID.stringValue);
@@ -143,6 +144,16 @@ class ManageGym extends React.Component{
                                     </div>
                             </div>
                             {this.DisplayGyms()}
+                            <div className="Card OpenSpace" style={{width: '15vw', height: '15vw'}} onClick={this.props.CreateNewGym}>
+                                <div className="Text">
+                                    <div className="PlusButton">
+                                        
+                                    </div>
+                                    <br/>
+                                    <span>
+                                        </span>
+                                    </div>
+                            </div>
                         </div>
                     </div>
                 </div>

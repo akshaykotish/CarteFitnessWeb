@@ -145,15 +145,14 @@ class CreateGym extends React.Component{
       }
 
 
-      AddRoles = () =>
+      AddRoles = async () =>
       {
 
         var GYMDocID = this.getcookie("GymDocID");
         var AccountDocID = this.getcookie("AccountDocID");
 
-        alert("=>" + GYMDocID + " " + AccountDocID);
 
-        fetch('https://us-central1-carte-gym.cloudfunctions.net/app/AddRoles', {
+        var resonse = await fetch('https://us-central1-carte-gym.cloudfunctions.net/app/AddRoles', {
             method: 'POST',
             body: JSON.stringify({
                 "GYMDocID": GYMDocID,
@@ -163,14 +162,11 @@ class CreateGym extends React.Component{
             headers: {
             'Content-type': 'application/json; charset=UTF-8',
             },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                window.location.href="/Home";
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
+        });
+
+        var data = await resonse.json();
+        console.log(data);
+        alert("Gym Created");
       }
 
 
