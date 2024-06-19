@@ -30,7 +30,7 @@ import { IoHome } from "react-icons/io5";
 import { IoAlbums } from "react-icons/io5";
 import { MdOutlineLocalFireDepartment } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
-import NewRole from "../AdminSide/NewRole";
+import AddRole from "../AdminSide/AddRole";
 
 
 class Home extends React.Component{
@@ -258,6 +258,7 @@ class Home extends React.Component{
                           <Route path="/Person" element={<Person  />} />
                           <Route path="/Login" element={<Login />} />
                           <Route path="/Signup" element={<SignUp />} />
+                          <Route path="/AddRole" element={<AddRole />} />
                     </Routes>
                   </BrowserRouter>
                 </div>
@@ -267,7 +268,7 @@ class Home extends React.Component{
               {
                 this.state.ModalIndex == 0 ? <CreateGym onSubmit={this.ModalHide}/>
                   : this.state.ModalIndex == 1 ? <CreateSubscription onSubmit={this.ModalHide}/> 
-                  : this.state.ModalIndex == 3 ? <NewRole onSubmit={this.ModalHide}/> 
+                  : this.state.ModalIndex == 3 ? <AddRole onSubmit={this.ModalHide}/> 
                   : <SubscriptionOrder onSubmit={this.ModalHide}/>
               }
             </div>
