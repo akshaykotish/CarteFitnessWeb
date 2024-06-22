@@ -30,7 +30,7 @@ import { IoHome } from "react-icons/io5";
 import { IoAlbums } from "react-icons/io5";
 import { MdOutlineLocalFireDepartment } from "react-icons/md";
 import { IoMdLogOut } from "react-icons/io";
-import AddRole from "../AdminSide/AddRole";
+import NewRole from "../AdminSide/NewRole";
 
 
 class Home extends React.Component{
@@ -53,7 +53,7 @@ class Home extends React.Component{
       setTimeout(()=>{
         document.getElementById("MainModal").style.display = "none";
         window.location.reload();
-      }, 2000);
+      }, 3000);
       
     }
 
@@ -170,7 +170,7 @@ class Home extends React.Component{
             <div className="Background">
               <div className="Header">
                 <div className="LeftSideArea" onClick={this.burgermenu}>
-                  <div class="menu-btn__burger"></div>
+                  <div className="menu-btn__burger"></div>
                 </div>
                 <div className="LogoPart">
                 {<Logo></Logo>} <div className="LogoText">Carte Fitness App<br/><span className="TagLine">Ultimate Gym Tool</span></div>
@@ -258,7 +258,7 @@ class Home extends React.Component{
                           <Route path="/Person" element={<Person  />} />
                           <Route path="/Login" element={<Login />} />
                           <Route path="/Signup" element={<SignUp />} />
-                          <Route path="/AddRole" element={<AddRole />} />
+                          <Route path="/NewRole" element={<NewRole />} />
                     </Routes>
                   </BrowserRouter>
                 </div>
@@ -268,7 +268,7 @@ class Home extends React.Component{
               {
                 this.state.ModalIndex == 0 ? <CreateGym onSubmit={this.ModalHide}/>
                   : this.state.ModalIndex == 1 ? <CreateSubscription onSubmit={this.ModalHide}/> 
-                  : this.state.ModalIndex == 3 ? <AddRole onSubmit={this.ModalHide}/> 
+                  : this.state.ModalIndex == 3 ? <NewRole onSubmit={this.ModalHide}/> 
                   : <SubscriptionOrder onSubmit={this.ModalHide}/>
               }
             </div>

@@ -4,6 +4,8 @@ import "./Common.css"
 
 class Signup extends React.Component{
 
+
+
     CreateAccount(){
         var fullname = document.getElementById("FullName").value;
         var phonenumber = document.getElementById("PhoneNumber").value;
@@ -30,9 +32,6 @@ class Signup extends React.Component{
                  console.log(data.Status);
                  console.log("Wrong credentials");
              }else{
-                 console.log(data._fieldsProto);
-                 console.log(data._ref._path.segments[1]);
-                 console.log(data);
                  document.cookie = "AccountDocID=" + data._ref._path.segments[1];
                  window.location.href="/Home";
              }
@@ -72,7 +71,7 @@ class Signup extends React.Component{
                             <input name="Password" id="Password" type="text"></input>
                     </div>
                     <div className="ButtonArea">
-                    <input type="button" value="Sign Up" onClick={this.CreateAccount}></input>
+                        <input type="button" value="Sign Up" onClick={this.CreateAccount}></input>
                         <br/>
                         If you don't have account <a href="Signup">Signup</a>
                     </div>

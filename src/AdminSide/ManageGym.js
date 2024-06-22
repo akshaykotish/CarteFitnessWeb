@@ -1,165 +1,134 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ManageGym.css";
 import TextLoader from "../textloaderwaiting";
 import NavStripe from "../NavStripe";
 import LoadingStrip from "../LoadingStrip";
 
-class ManageGym extends React.Component{
+const ManageGym = (props) => {
+    const [isLoadGymCalled, setIsLoadGymCalled] = useState(false);
+    const [gyms, setGyms] = useState(new Map());
 
-    constructor(props){
-        super(props);
-
-        this.state = {
-            isLoadGymCalled: false,
-            Gyms: [],
-        };
-    }
-
-    
-    getcookie = (cname) => {
+    const getCookie = (cname) => {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
         let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-          let c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
         }
         return "";
-      }
-
-    loadGYM = (GymDocID)=>{
-        fetch('https://us-central1-carte-gym.cloudfunctions.net/app/GetGym', {
-            method: 'POST',
-            body: JSON.stringify({
-                "GymDocID": GymDocID
-            }),
-            headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                this.state.Gyms.push(data);
-                this.setState({Gyms: this.state.Gyms});
-            })
-            .catch((err) => {
-                console.log(err.message);
-            });
     }
 
-
-    load_myGyms = ()=>{
-        var AccountDocID = this.getcookie("AccountDocID");
-        
-        fetch('https://us-central1-carte-gym.cloudfunctions.net/app/MyGyms', {
-            method: 'POST',
-            body: JSON.stringify({
-                "AccountDocID": AccountDocID
-            }),
-            headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                data.forEach(element => {
-                    console.log(element._fieldsProto.GYMDocID.stringValue);
-                    this.loadGYM(element._fieldsProto.GYMDocID.stringValue);
-                });
-            })
-            .catch((err) => {
-                console.log(err.message);
+    const loadGym = async (GymDocID) => {
+        try {
+            const response = await fetch('https://us-central1-carte-gym.cloudfunctions.net/app/GetGym', {
+                method: 'POST',
+                body: JSON.stringify({ "GymDocID": GymDocID }),
+                headers: { 'Content-type': 'application/json; charset=UTF-8' },
             });
-    }
-
-
-    componentDidMount(){
-        
-        if(this.state.isLoadGymCalled == false){
-            this.state.isLoadGymCalled = true;
-            this.load_myGyms();
+            const data = await response.json();
+            setGyms(prevGyms => {
+                const newGyms = new Map(prevGyms);
+                newGyms.set(GymDocID, data);
+                return newGyms;
+            });
+        } catch (err) {
+            console.log(err.message);
         }
-        
     }
 
-    OnClickGymBox = (data)=>{
+    const loadMyGyms = async () => {
+        const AccountDocID = getCookie("AccountDocID");
+
+        try {
+            const response = await fetch('https://us-central1-carte-gym.cloudfunctions.net/app/MyGyms', {
+                method: 'POST',
+                body: JSON.stringify({ "AccountDocID": AccountDocID }),
+                headers: { 'Content-type': 'application/json; charset=UTF-8' },
+            });
+            const data = await response.json();
+            await Promise.all(data.map(async (element) => {
+                await loadGym(element._fieldsProto.GYMDocID.stringValue);
+            }));
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    useEffect(() => {
+        if (!isLoadGymCalled) {
+            setIsLoadGymCalled(true);
+            loadMyGyms();
+        }
+    }, [isLoadGymCalled]);
+
+    const onClickGymBox = (data) => {
         document.cookie = "GymDocID=" + data._ref._path.segments[1];
-        window.location.href="/GymDashboard";
-        //alert(data._ref._path.segments[1]);
+        window.location.href = "/GymDashboard";
     }
 
-    DisplayGyms(){
-        if(this.state.Gyms.length == 0)
-        {
-            return (<LoadingStrip></LoadingStrip>);
-        }
-        else{
-            console.log(this.state.Gyms);
+    const displayGyms = () => {
+        if (gyms.size === 0) {
+            return <LoadingStrip />;
+        } else {
             return (
-                <>{
-                    this.state.Gyms.map(data=>{
-                        return (
-                        <div className="Card GymPickDesign" key={data._fieldsProto.GymName.stringValue} onClick={()=>this.OnClickGymBox(data)}>
-                                <div className="Text">
-                                    {data._fieldsProto.GymName.stringValue}
-                                    <br/>
-                                    <span>
-                                        {data._fieldsProto.Address1.stringValue} {data._fieldsProto.Address2.stringValue} {data._fieldsProto.City.stringValue}
-                                        </span>
-                                    </div>
+                <>
+                    {[...gyms.values()].map(data => (
+                        <div className="Card GymPickDesign" key={data._fieldsProto.GymName.stringValue} onClick={() => onClickGymBox(data)}>
+                            <div className="Text">
+                                {data._fieldsProto.GymName.stringValue}
+                                <br />
+                                <span>
+                                    {data._fieldsProto.Address1.stringValue} {data._fieldsProto.Address2.stringValue} {data._fieldsProto.City.stringValue}
+                                </span>
                             </div>
-                        );
-                    })
-                }</>);
+                        </div>
+                    ))}
+                </>
+            );
         }
     }
- 
-    render(){
-        return (
-            <>
-                <div className="ManageGymBackground">
-                    <div className="CardsBox">
-                        <div className="CardsBoxTitle">
-                            <h3>Home&nbsp;</h3>
-                             <p>&nbsp;|&nbsp;Your Gyms</p>
+
+    return (
+        <div className="ManageGymBackground">
+            <div className="CardsBox">
+                <div className="CardsBoxTitle">
+                    <h3>Home&nbsp;</h3>
+                    <p>&nbsp;|&nbsp;Your Gyms</p>
+                </div>
+                <div className="Cards">
+                    <div className="Card AddNewAnythingDesign" style={{ width: '15vw', height: '15vw' }} onClick={props.CreateNewGym}>
+                        <div className="Text">
+                            <div className="PlusButton">
+                                +
+                            </div>
+                            Add New Gym
+                            <br />
+                            <span>
+                                You can create new gym from here.
+                            </span>
                         </div>
-                        <div className="Cards">
-                            <div className="Card AddNewAnythingDesign" style={{width: '15vw', height: '15vw'}} onClick={this.props.CreateNewGym}>
-                                <div className="Text">
-                                    <div className="PlusButton">
-                                        +
-                                    </div>
-                                    Add New Gym
-                                    <br/>
-                                    <span>
-                                        You can create new gym from here.
-                                        </span>
-                                    </div>
+                    </div>
+                    {displayGyms()}
+                    <div className="Card OpenSpace" style={{ width: '15vw', height: '15vw' }} onClick={props.CreateNewGym}>
+                        <div className="Text">
+                            <div className="PlusButton">
+                                
                             </div>
-                            {this.DisplayGyms()}
-                            <div className="Card OpenSpace" style={{width: '15vw', height: '15vw'}} onClick={this.props.CreateNewGym}>
-                                <div className="Text">
-                                    <div className="PlusButton">
-                                        
-                                    </div>
-                                    <br/>
-                                    <span>
-                                        </span>
-                                    </div>
-                            </div>
+                            <br />
+                            <span>
+                            </span>
                         </div>
                     </div>
                 </div>
-            </>
-        );
-    }
+            </div>
+        </div>
+    );
 }
 
 export default ManageGym;

@@ -1,6 +1,10 @@
 import React from "react";
+import "../Common.css";
+import ReuseFunctions from "./ReuseFunctions"; // Adjust the path as needed
+import LoadingStrip from "../LoadingStrip";
 
-class AddRole extends React.Component {
+
+class NewRole extends React.Component {
     constructor(props) {
         super(props);
 
@@ -19,23 +23,47 @@ class AddRole extends React.Component {
             SoftwareAccess: [],
             teamHeads: [],
             softwareAccessOptions: [
-                { label: "New Gym", value: "new_gym" },
-                { label: "New Subscription", value: "new_subscription" },
-                { label: "Manage Members", value: "manage_members" },
-                { label: "View Reports", value: "view_reports" }
+                { label: "Full Access", value: "Full_Access" },
             ],
-            defaultSalary: "50000"
+            defaultSalary: "00",
+            isLoading: false, // Add isLoading state
         };
+
+        this.reuseFunctions = new ReuseFunctions(); // Create an instance of ReuseFunctions
     }
 
     componentDidMount() {
-        var GymDocID = this.getcookie("GymDocID");
-        this.setState({ GymDocID: GymDocID });
-        var AccountDocID = this.getcookie("AccountDocID");
-        this.setState({ AccountDocID: AccountDocID });
+        const GymDocID = this.getcookie("GymDocID");
+        this.setState({ GymDocID });
+        const AccountDocID = this.getcookie("AccountDocID");
+        this.setState({ AccountDocID });
 
-        // Fetch team heads from the server or initialize with dummy data
-        this.setState({ teamHeads: ["John Doe", "Jane Smith", "Emily Davis"] });
+        // Fetch team heads from the API
+        fetch('https://us-central1-carte-gym.cloudfunctions.net/app/GetRoles', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ "GYMDocID": GymDocID, "AccountDocID": AccountDocID }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                const teamHeads = [];
+                data.forEach((d, index)=>{
+                    const rolename = d._fieldsProto.RoleName.stringValue;
+                    teamHeads.push(rolename);
+                    console.log(rolename);
+
+                    if(index == data.length -1){
+                        this.setState({ teamHeads: teamHeads });
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching team heads:', error);
+            });
+
+
         this.setState({ Salary: this.state.defaultSalary });
     }
 
@@ -89,7 +117,15 @@ class AddRole extends React.Component {
         this.setState({ Perks: this.state.Perks.concat([{ title: "", detail: "" }]) });
     }
 
-    addRole = () => {
+    calculateTotalSalary = () => {
+        const { Salary, OtherAmounts } = this.state;
+        const otherAmountsTotal = OtherAmounts.reduce((total, amount) => total + parseFloat(amount.value || 0), 0);
+        return parseFloat(Salary || 0) + otherAmountsTotal;
+    }
+
+    addRole = async () => {
+        this.setState({ isLoading: true }); // Set loading state to true
+        
         const { RoleName, Designation, TeamHead, Salary, OtherAmounts, Responsibilities, Perks, ShiftStart, ShiftEnd, SoftwareAccess } = this.state;
 
         if (RoleName === "" || Designation === "" || TeamHead === "" || Salary === "" || Responsibilities.some(r => r.title === "" || r.detail === "") || ShiftStart === "" || ShiftEnd === "" || SoftwareAccess.length === 0) {
@@ -145,37 +181,33 @@ class AddRole extends React.Component {
                 document.getElementById("SoftwareAccessError").style.display = "block";
             } else {
                 document.getElementById("SoftwareAccessError").style.display = "none";
-            }
+            }   
+            this.setState({ isLoading: false }); // Set loading state to false
         } else {
-            fetch('https://us-central1-carte-gym.cloudfunctions.net/app/AddRoles', {
-                method: 'POST',
-                body: JSON.stringify({
-                    "AccountDocID": this.state.AccountDocID,
-                    "GymDocID": this.state.GymDocID,
-                    "RoleName": RoleName,
-                    "Designation": Designation,
-                    "TeamHead": TeamHead,
-                    "Salary": Salary,
-                    "OtherAmounts": OtherAmounts,
-                    "Responsibilities": Responsibilities,
-                    "Perks": Perks,
-                    "ShiftStart": ShiftStart,
-                    "ShiftEnd": ShiftEnd,
-                    "SoftwareAccess": SoftwareAccess
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    alert("Role Added Successfully");
-                    this.props.onSubmit();
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
+            const bodydata = {
+                AccountDocID: this.state.AccountDocID,
+                GymDocID: this.state.GymDocID,
+                RoleName: RoleName,
+                Designation: Designation,
+                TeamHead: TeamHead,
+                Salary: this.calculateTotalSalary(),
+                OtherAmounts: OtherAmounts,
+                Responsibilities: Responsibilities,
+                Perks: Perks,
+                ShiftStart: ShiftStart,
+                ShiftEnd: ShiftEnd,
+                SoftwareAccess: SoftwareAccess
+            };
+
+            try {
+                const data = await this.reuseFunctions.AddRole(bodydata);
+                console.log(data);   
+                this.props.onSubmit();
+            } catch (err) {
+                console.log(err.message);   
+                this.setState({ isLoading: false }); // Set loading state to false
+        
+            }
         }
     }
 
@@ -195,7 +227,16 @@ class AddRole extends React.Component {
         return "";
     }
 
+    
+    handleCancel = () => {
+        this.setState({ isLoading: true }); // Set loading state to true
+        this.props.onSubmit();
+        this.setState({ isLoading: false }); // Set loading state to false
+    }
+
     render() {
+        const totalSalary = this.calculateTotalSalary();
+
         return (
             <>
                 <div className="FormBG">
@@ -203,6 +244,7 @@ class AddRole extends React.Component {
                         <div className="Header">
                             <h3>Add New Job Role</h3>
                         </div>
+                        {this.state.isLoading && <LoadingStrip />} {/* Conditionally render LoadingStrip */}
                         <div className="FieldsArea">
                             <div className="FieldRow">
                                 <b>Role Name</b>
@@ -224,7 +266,7 @@ class AddRole extends React.Component {
                             <div className="FormFieldDivider"></div>
                             <div className="FieldRow">
                                 <b>Salary</b>
-                                <input name="Salary" id="Salary" className="RuppeeSymbol" type="number" placeholder="Salary" value={this.state.Salary} onChange={this.handleChange} />
+                                <input name="Salary" id="Salary" className="RupeeSymbol" type="number" placeholder="Salary" value={this.state.Salary} onChange={this.handleChange} />
                             </div>
                             <div className="FormFieldDivider"></div>
                             {this.state.OtherAmounts.map((amount, index) => (
@@ -242,7 +284,7 @@ class AddRole extends React.Component {
                                         type="number"
                                         name="value"
                                         id={`OtherAmount-${index}-value`}
-                                        className="RuppeeSymbol"
+                                        className="RupeeSymbol"
                                         placeholder="Amount"
                                         value={amount.value}
                                         onChange={(e) => this.handleOtherAmountChange(index, e)}
@@ -251,6 +293,11 @@ class AddRole extends React.Component {
                             ))}
                             <div className="FieldRow">
                                 <button type="button" onClick={this.addOtherAmount}>Add Other Amount</button>
+                            </div>
+                            <div className="FormFieldDivider"></div>
+                            <div className="FieldRow">
+                                <b>Total Salary</b>
+                                <input type="text" className="RupeeSymbol" value={totalSalary} readOnly />
                             </div>
                             <div className="FormFieldDivider"></div>
                             {this.state.Responsibilities.map((responsibility, index) => (
@@ -329,7 +376,7 @@ class AddRole extends React.Component {
                             </div>
                             <div className="ButtonArea">
                                 <input type="button" value="Add Role" onClick={this.addRole} />
-                                <input type="button" value="Cancel" onClick={this.props.onSubmit} />
+                                <input type="button" value="Cancel" onClick={this.handleCancel} />
                             </div>
                         </div>
                     </div>
@@ -339,4 +386,4 @@ class AddRole extends React.Component {
     }
 }
 
-export default AddRole;
+export default NewRole;

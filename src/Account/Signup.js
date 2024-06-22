@@ -11,28 +11,30 @@ const Signup = () => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
+    const [inputErrors, setInputErrors] = useState({
+        FullName: false,
+        Phone: false,
+        Email: false,
+        Password: false
+    });
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setInputErrors({ ...inputErrors, [e.target.name]: false });
     };
 
     const validateForm = () => {
         const { FullName, Phone, Email, Password } = formData;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^\+[0-9]{1,3}[0-9]{10}$/;
-        if (!FullName || !Phone || !Email || !Password) {
-            return 'All fields are required.';
-        }
-        if (!emailRegex.test(Email)) {
-            return 'Invalid email format.';
-        }
-        if (!phoneRegex.test(Phone)) {
-            return 'Invalid phone number format.';
-        }
-        if (Password.length < 6) {
-            return 'Password should be at least 6 characters long.';
-        }
-        return null;
+        let errors = {
+            FullName: !FullName,
+            Phone: !Phone || !phoneRegex.test(Phone),
+            Email: !Email || !emailRegex.test(Email),
+            Password: !Password || Password.length < 6
+        };
+        setInputErrors(errors);
+        return Object.values(errors).some(error => error);
     };
 
     const checkPhoneNumber = async () => {
@@ -54,9 +56,9 @@ const Signup = () => {
     };
 
     const createAccount = async () => {
-        const errorMessage = validateForm();
-        if (errorMessage) {
-            setMessage(errorMessage);
+        const hasErrors = validateForm();
+        if (hasErrors) {
+            setMessage('Please fill all the fields.');
             return;
         }
 
@@ -64,7 +66,7 @@ const Signup = () => {
         setMessage('');
 
         const account = await checkPhoneNumber();
-        
+
         if(account.Status == undefined){
             const accountID = account._fieldsProto.Phone.stringValue; 
             if (accountID) {
@@ -102,30 +104,42 @@ const Signup = () => {
     return (
         <div className="LoginBackground">
             <div className="LoginForm">
-                <div className="Header">
-                    <h1>Sign Up</h1>
-                </div>
                 <div className="LoginFieldArea">
-                    <div className="FieldRow">
-                        <b>Full Name</b>
-                        <input name="FullName" value={formData.FullName} onChange={handleChange} type="text" />
+                    <div className="Header">
+                        <h1>Sign Up</h1>
                     </div>
                     <div className="FieldRow">
-                        <b>Phone Number</b>
-                        <input name="Phone" value={formData.Phone} onChange={handleChange} type="text" />
+                        <span>Full Name</span>
+                        <div className="InputWithIcon">
+                            <i className="fas fa-user"></i>
+                            <input name="FullName" value={formData.FullName} onChange={handleChange} type="text" placeholder="Full Name" className={inputErrors.FullName ? 'error' : ''} />
+                        </div>
                     </div>
                     <div className="FieldRow">
-                        <b>Email</b>
-                        <input name="Email" value={formData.Email} onChange={handleChange} type="text" />
+                        <span>Phone Number</span>
+                        <div className="InputWithIcon">
+                            <i className="fas fa-phone"></i>
+                            <input name="Phone" value={formData.Phone} onChange={handleChange} type="text" placeholder="+919812312345" className={inputErrors.Phone ? 'error' : ''} />
+                        </div>
                     </div>
                     <div className="FieldRow">
-                        <b>Password</b>
-                        <input name="Password" value={formData.Password} onChange={handleChange} type="password" />
+                        <span>Email</span>
+                        <div className="InputWithIcon">
+                            <i className="fas fa-envelope"></i>
+                            <input name="Email" value={formData.Email} onChange={handleChange} type="text" placeholder="yourmail@gmail.com" className={inputErrors.Email ? 'error' : ''} />
+                        </div>
+                    </div>
+                    <div className="FieldRow">
+                        <span>Password</span>
+                        <div className="InputWithIcon">
+                            <i className="fas fa-lock"></i>
+                            <input name="Password" value={formData.Password} onChange={handleChange} type="password" placeholder="Password@123" className={inputErrors.Password ? 'error' : ''} />
+                        </div>
                     </div>
                     <div className="ButtonArea">
                         <input type="button" value="Sign Up" onClick={createAccount} />
                         <br />
-                        If you already have an account <a href="Login">Login</a>
+                        Already have an account <a href="Login">Login</a>
                     </div>
                     {isLoading ? (
                         <div className="LoadingStripArea">

@@ -10,6 +10,7 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
+    backdrop-filter: blur(10px); /* Blur effect */
 }
 
 .Form{
@@ -24,8 +25,9 @@
     height: 70vh;
     border-radius: 10px;
     padding: 2%;
+    backdrop-filter: blur(10px); /* Blur effect */
     background-color: rgb(255, 255, 255);
-    animation: FadeinForm 2s;
+    animation: FadeinForm 1s;
 }
 
 
@@ -38,12 +40,13 @@
     align-content: center;
     overflow: auto;
     flex-direction: column;
-    width: 60vw;
-    height: 70vh;
+    width: 300px;
     border-radius: 10px;
     padding: 2%;
-    background-color: rgb(255, 255, 255);
+    backdrop-filter: blur(10px); /* Blur effect */
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent overlay */
     animation: FadeinForm 2s;
+    
 }
 
 @keyframes FadeinForm {
@@ -53,6 +56,18 @@
     to{
         opacity: 1;
     }
+}
+
+
+.LoginFieldArea .Header{
+    text-align: left;
+    width: 100%;
+    min-height: 80px;
+}
+
+.LoginFieldArea .Header h1{
+    text-align: left;
+    width: 100%;
 }
 
 .LoadingStripArea{
@@ -67,6 +82,11 @@
     text-align: left;
 }
 
+.Form .Header h3{
+    width: 100%;
+    text-align: left;
+}
+
 .Form .FieldsArea {
     display: flex;
     flex-wrap: wrap;
@@ -78,6 +98,8 @@
 }
 
 .LoginFieldArea{
+    width: 80%;
+    font-size: 12pt;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -87,13 +109,92 @@
     flex-direction: column;
 }
 
-.LoginFieldArea .FieldRow{
+.LoginFieldArea .FieldRow {
     width: 100%;
 }
 
-.LoginFieldArea .ButtonArea{
-    width: 100%;
+
+.LoginFieldArea input {
+    background-color: white;
+    outline: none;
+    border: 2px solid transparent; /* Initial border */
+    padding: 10px; /* Optional: Add some padding */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    transition: border-color 0.3s ease; /* Smooth transition */
 }
+
+.LoginFieldArea input:focus { /* When the input is focused */
+    border-color: grey; /* Change the outline color to grey */
+}
+
+.LoginFieldArea .ButtonArea {
+    width: 100%;
+    text-align: center; /* Center the button within the area */
+    display: flex; /* Use flexbox for better centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column;
+    font-size: 9pt;
+}
+
+.input[type=button] {
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    border-radius: 5px; /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    cursor: pointer; /* Change cursor on hover */
+    outline: none; /* Remove default outline */
+    display: inline-block; /* Ensure proper placement */
+    text-align: center; /* Center text inside the button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    position: relative; /* For the pseudo-elements */
+    overflow: hidden; /* Hide pseudo-elements overflow */
+    
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+    flex-direction: row;
+    font-size: 10pt;
+}
+
+.LoginFieldArea .ButtonArea input[type=button]::before,
+.LoginFieldArea .ButtonArea input[type=button]::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent overlay */
+    transition: all 0.3s ease;
+}
+
+.LoginFieldArea .ButtonArea input[type=button]::after {
+    left: 100%;
+    background: rgba(255, 255, 255, 0.2); /* Slightly more transparent overlay */
+}
+
+.LoginFieldArea .ButtonArea input[type=button]:hover::before {
+    left: 100%; /* Slide overlay to the right */
+}
+
+.LoginFieldArea .ButtonArea input[type=button]:hover::after {
+    left: -100%; /* Slide overlay to the left */
+}
+
+.LoginFieldArea .ButtonArea input[type=button]:active {
+    background-color: #555; /* Slightly lighter dark for active state */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Deeper shadow for active state */
+    transform: scale(0.98); /* Slightly scale down on click */
+}
+
 
 .Form .FieldsArea .FieldRow{
     margin: 1%;
@@ -111,6 +212,8 @@
 
 .FieldRow input{
     font-size: 9pt;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 .Form .FieldsArea .FieldRow input[type=text]{
@@ -152,20 +255,86 @@
 }
 
 .Form .ButtonArea{
+    width: 100%;
+    text-align: center; /* Center the button within the area */
+    display: flex; /* Use flexbox for better centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: row;
+    font-size: 9pt;
+}
+
+.Form .ButtonArea input[type=button]{
+    background-color: #333 !important; /* Dark background */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    border-radius: 5px; /* Rounded corners */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    cursor: pointer; /* Change cursor on hover */
+    outline: none; /* Remove default outline */
+    display: inline-block; /* Ensure proper placement */
+    text-align: center; /* Center text inside the button */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    position: relative; /* For the pseudo-elements */
+    overflow: hidden; /* Hide pseudo-elements overflow */
+    
+    
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     align-content: center;
-    overflow: auto;
+    overflow: hidden;
     flex-direction: row;
+    font-size: 10pt;
+    width: 140px;
+    margin: 2%;
+}
+
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.InputWithIcon {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.InputWithIcon i {
+    position: absolute;
+    left: 10px;
+    color: #888;
+}
+
+.InputWithIcon input {
+    padding-left: 30px;
     width: 100%;
 }
 
-.Form .ButtonArea input[type=button]{
-    width: auto;
-    padding-left: 2%;
-    padding-right: 2%;
-    max-width: 50%;
-    margin: 1%;
+
+.MessageBox {
+    animation: fadeIn 2s ease-in-out;
+    font-size: 8pt;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
