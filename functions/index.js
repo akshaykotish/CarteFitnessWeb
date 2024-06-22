@@ -29,6 +29,7 @@ app.post("/Signup", (req, res) => {
     "Password": req.body.Password,
   }).then((doc)=>{
     const aid = doc._path.segments[1];
+    console.log(aid);
     res.send({AccountID: aid});
   });
 });
@@ -84,11 +85,11 @@ app.post("/CreateGym", (req, res) => {
 app.post("/MyGyms", (req, res) => {
   db.collection("Accounts").
       doc(req.body.AccountDocID).
-      collection("Roles").
-      get().then((roles)=>{
+      collection("Gyms_Administration").
+      get().then((gymandroles)=>{
         const data = [];
-        roles.forEach((role)=>{
-          data.push(role);
+        gymandroles.forEach((gymandrole)=>{
+          data.push(gymandrole);
         });
         res.send(data);
       });
@@ -100,20 +101,54 @@ app.post("/GetGym", (req, res) => {
   });
 });
 
-app.post("/AddRoles", (req, res) => {
-  const AccountDocID = req.body.AccountDocID;
+
+app.post("/AddRole", (req, res) => {
+  const GymDocID = req.body.GymDocID;
+
+  db.collection("Gym").doc(GymDocID).collection("Roles").add({
+    "RoleName": req.body.RoleName,
+    "Designation": req.body.Designation,
+    "TeamHead": req.body.TeamHead,
+    "Salary": req.body.Salary,
+    "OtherAmounts": req.body.OtherAmounts,
+    "Responsibilities": req.body.Responsibilities,
+    "Perks": req.body.Perks,
+    "ShiftStart": req.body.ShiftStart,
+    "ShiftEnd": req.body.ShiftEnd,
+    "SoftwareAccess": req.body.SoftwareAccess,
+  }).then((doc)=>{
+    res.send(doc);
+  });
+});
+
+
+app.post("/GetRoles", (req, res) => {
   const GYMDocID = req.body.GYMDocID;
 
-  db.collection("Accounts").doc(AccountDocID).collection("Roles").add({
-    "GYMDocID": GYMDocID,
-    "Powers": req.body.Powers,
-  }).then((doc)=>{
-    db.collection("Gym").doc(GYMDocID).collection("Roles").add({
-      "AccountDocID": AccountDocID,
-      "Powers": req.body.Powers,
-    }).then((doc)=>{
-      res.send(true);
+  db.collection("Gym").doc(GYMDocID).collection("Roles").get().then((roles)=>{
+    const data = [];
+    roles.forEach((role)=>{
+      data.push(role);
     });
+    res.send(data);
+  });
+});
+
+app.post("/AddAdministrator", (req, res) => {
+  const GYMDocID = req.body.GYMDocID;
+  const AccountDocID = req.body.AccountDocID;
+
+  db.collection("Gym").doc(GYMDocID).collection("Administrator").add({
+    "AccountDocID": req.body.AccountDocID,
+    "Role": req.body.RoleId,
+  }).then((doc)=>{
+    db.collection("Accounts").doc(AccountDocID)
+        .collection("Gyms_Administration").add({
+          "GYMDocID": req.body.GYMDocID,
+          "Role": req.body.RoleId,
+        }).then((doc)=>{
+          res.send(true);
+        });
   });
 });
 
